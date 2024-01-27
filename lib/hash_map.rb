@@ -35,7 +35,7 @@ class HashMap
     table_index = key % capacity
     raise IndexError if table_index.negative? || table_index >= capacity
     hash_table[table_index] = LinkedList.new if hash_table[table_index].nil?
-    hash_table[table_index].prepend(value, key)
+    hash_table[table_index].prepend(key, value)
     # add in a clause for growing the table if the current capacity >= load_factor
     # double the array size if the array is 3/4 full (12 out of 16 occupied)
   end
@@ -81,28 +81,63 @@ class HashMap
 
   def length
     return 0 if hash_table.empty?
-    count = hash_table.each.with_object(0) do |bucket, keys|
-      next if bucket.nil?
-      current = bucket.root
-      until current.nil?
-        current = current.next_node
-        keys += 1
+    count = hash_table.reduce(0) do |sum, bucket|
+      unless bucket.nil?
+        list = bucket.root
+        until list.nil?
+          sum += 1
+          list = list.next_node
+        end
       end
-      keys
+      sum
     end
   end
 
   def clear
+    hash_table.map! { |bucket| bucket = nil }
   end
 
   # methods that return an array
   def keys
+    return [] if hash_table.empty?
+    keys = hash_table.reduce([]) do |arr, bucket|
+      unless bucket.nil?
+        nodes = bucket.root
+        until nodes.nil?
+          arr << nodes.key
+          nodes = nodes.next_node
+        end
+      end
+      arr
+    end
   end
 
   def values
+    return [] if hash_table.empty?
+    values = hash_table.reduce([]) do |arr, bucket|
+      unless bucket.nil?
+        nodes = bucket.root
+        until nodes.nil?
+          arr << nodes.value
+          nodes = nodes.next_node
+        end
+      end
+      arr
+    end
   end
 
   def entries
+    return [[]] if hash_table.empty?
+    hash_table.reduce([]) do |arr2d, bucket|
+      unless bucket.nil?
+        list = bucket.root
+        until list.nil?
+          arr2d << [list.key, list.value]
+          list = list.next_node
+        end
+      end
+      arr2d
+    end
   end
 
 end
