@@ -32,19 +32,19 @@ class HashMap
   end
 
   def set(key, value)
-    table_index = key % capacity
-    raise IndexError if table_index.negative? || table_index >= capacity
-    hash_table[table_index] = LinkedList.new if hash_table[table_index].nil?
-    hash_table[table_index].prepend(key, value)
+    idx = key % capacity
+    raise IndexError if idx.negative? || idx >= capacity
+    hash_table[idx] = LinkedList.new if hash_table[idx].nil?
+    hash_table[idx].prepend(key, value)
     # add in a clause for growing the table if the current capacity >= load_factor
     # double the array size if the array is 3/4 full (12 out of 16 occupied)
   end
 
   def get(key)
-    table_index = key % capacity
-    raise IndexError if table_index.negative? || table_index >= capacity
-    return if hash_table[table_index].nil?
-    head = hash_table[table_index].root
+    idx = key % capacity
+    raise IndexError if idx.negative? || idx >= capacity
+    return if hash_table[idx].nil?
+    head = hash_table[idx].root
     until head.nil?
       return head.value if hash(head.value) == key
       head = head.next_node
@@ -52,10 +52,10 @@ class HashMap
   end
 
   def key?(key)
-    table_index = key % capacity
-    raise IndexError if table_index.negative? || table_index >= capacity
-    return false if hash_table[table_index].nil?
-    head = hash_table[table_index].root
+    idx = key % capacity
+    raise IndexError if idx.negative? || idx >= capacity
+    return false if hash_table[idx].nil?
+    head = hash_table[idx].root
     until head.nil?
       return true if hash(head.value) == key
     end
@@ -63,12 +63,12 @@ class HashMap
   end
 
   def remove(key)
-    table_index = key % capacity
-    raise IndexError if table_index.negative? || table_index >= capacity
-    return if hash_table[table_index].nil?
-    curr = hash_table[table_index].root
+    idx = key % capacity
+    raise IndexError if idx.negative? || idx >= capacity
+    return if hash_table[idx].nil?
+    curr = hash_table[idx].root
     if hash(curr.value) == key
-      hash_table[table_index].root = hash_table[table_index].root.next_node
+      hash_table[idx].root = hash_table[idx].root.next_node
       return curr.value
     end
     while !curr.nil? && hash(curr.value) != key
@@ -139,5 +139,4 @@ class HashMap
       arr2d
     end
   end
-
 end

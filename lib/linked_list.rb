@@ -20,7 +20,7 @@ class LinkedList
     end
   end
 
-  def prepend(key = nil, value)
+  def prepend(key = nil, value = nil)
     self.root.nil? ? self.root = Node.new(key, value) : self.root = Node.new(key, value, self.root)
   end
 
@@ -95,10 +95,10 @@ class LinkedList
     temp = self.root
     str_ver = ''
     while !temp.next_node.nil?
-      str_ver += %(( #{temp.value} ) -> )
+      str_ver += %(( #{temp.value.nil? ? temp.key : temp.value} ) -> )
       temp = temp.next_node
     end
-    str_ver += %(( #{temp.value} ) -> )
+    str_ver += %(( #{temp.value.nil? ? temp.key : temp.value} ) -> )
   end
 
   # TODO: implement the #insert_at and #remove_at method for extra credit
