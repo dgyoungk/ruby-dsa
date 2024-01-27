@@ -34,7 +34,7 @@
     - #key?(key): returns a boolean value depending on whether the given key exists or not
     - #remove(key): remove the key-pair value with given key and return deleted pair's value;
         if key is not found, return nil
-    - #lenght: returns the number of stored keys in the hash map
+    - #length: returns the number of stored keys in the hash map
     - #clear: removes all entries in the hash map
     - #keys: returns an array of all the keys in the hash map
     - #values: returns an array of all values in the hash map
@@ -43,3 +43,4 @@
 
 
 Author: Daniel Kwon 2024
+*** #hash method cited from TOP's HashMap lesson ***
