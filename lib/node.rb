@@ -7,8 +7,4 @@ class Node
     @value = value
     self.next_node = next_node
   end
-
-  def value
-    @value
-  end
 end
