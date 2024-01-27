@@ -41,6 +41,18 @@
     - #entries: returns an array that contains each key, value pair
         e.g. [[f_key, f_value], [s_key, s_value], [t_key, t_value]]
 
+## Hash Set
+    - behaves exactly like Hash Map, but with only keys and no values
+    
+### Methods
+    - #hash
+    - #set(key)
+    - #get(key): returns the key instead of the value
+    - #key?(key)
+    - #remove(key): returns the key instead of the value
+    - #length
+    - #clear
+    - #keys
 
 Author: Daniel Kwon 2024
 
