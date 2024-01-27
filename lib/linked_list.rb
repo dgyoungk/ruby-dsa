@@ -8,7 +8,7 @@ class LinkedList
     self.root = root
   end
 
-  def append(value)
+  def append(key = nil, value)
     if self.root.nil?
       self.prepend(value)
     else
@@ -16,12 +16,12 @@ class LinkedList
       until tmp.next_node.nil?
         tmp = tmp.next_node
       end
-      tmp.next_node = Node.new(value)
+      tmp.next_node = Node.new(key, value)
     end
   end
 
-  def prepend(value, key = nil)
-    self.root.nil? ? self.root = Node.new(value, nil, key) : self.root = Node.new(value, self.root, key)
+  def prepend(key = nil, value)
+    self.root.nil? ? self.root = Node.new(key, value) : self.root = Node.new(key, value, self.root)
   end
 
   def size
@@ -38,7 +38,7 @@ class LinkedList
   def head
     return if self.root.nil?
     temp = self.root
-    return Node.new(temp.value).value
+    return Node.new(nil, temp.value)
   end
 
   def tail
@@ -47,7 +47,7 @@ class LinkedList
     until temp.next_node.nil?
       temp = temp.next_node
     end
-    temp.value
+    temp
   end
 
   def at(index)
@@ -59,7 +59,7 @@ class LinkedList
   end
 
   def pop
-    key = self.tail
+    key = self.tail.value
     return if self.root.nil?
     self.root = self.root.next_node if self.root.value == key
     current = self.root
@@ -111,7 +111,7 @@ class LinkedList
       curr = curr.next_node
       count += 1
       if count == index
-        to_insert = Node.new(value, curr)
+        to_insert = Node.new(nil, value, curr)
         prev.next_node = to_insert
       end
     end
