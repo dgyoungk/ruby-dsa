@@ -1,15 +1,10 @@
 class Node
-  attr_reader :value
-  attr_accessor :next_node
+  attr_reader :key
+  attr_accessor :next_node, :value
 
-  def initialize(value = nil, next_node = nil)
+  def initialize(value = nil, next_node = nil, key = nil)
     @value = value
     self.next_node = next_node
+    @key = key
   end
-
-  def value
-    @value
-  end
-
-
 end
