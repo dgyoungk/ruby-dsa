@@ -20,8 +20,8 @@ class LinkedList
     end
   end
 
-  def prepend(value)
-    self.root.nil? ? self.root = Node.new(value) : self.root = Node.new(value, self.root)
+  def prepend(value, key = nil)
+    self.root.nil? ? self.root = Node.new(value, nil, key) : self.root = Node.new(value, self.root, key)
   end
 
   def size
