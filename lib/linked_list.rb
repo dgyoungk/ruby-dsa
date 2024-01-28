@@ -10,7 +10,7 @@ class LinkedList
 
   def append(key = nil, value)
     if self.root.nil?
-      self.prepend(value)
+      self.prepend(key, value)
     else
       tmp = self.root
       until tmp.next_node.nil?

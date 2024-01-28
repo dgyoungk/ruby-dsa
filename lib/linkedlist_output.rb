@@ -2,10 +2,10 @@ require_relative 'linked_list.rb'
 
 linked_list = LinkedList.new
 3.times do |n|
-  linked_list.append(%(item#{n + 1}))
+  linked_list.append(nil ,%(item#{n + 1}))
 end
 3.times do |n|
-  linked_list.prepend(%(item#{(n + 2) * 2}))
+  linked_list.prepend(nil, %(item#{(n + 2) * 2}))
 end
 
 # to_s method
