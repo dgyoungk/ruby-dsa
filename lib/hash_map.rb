@@ -32,7 +32,7 @@ class HashMap
   end
 
   def set(key, value)
-    idx = key % capacity
+    idx = self.hash(key) % capacity
     raise IndexError if idx.negative? || idx >= capacity
     hash_table[idx] = LinkedList.new if hash_table[idx].nil?
     hash_table[idx].prepend(key, value)
@@ -41,37 +41,38 @@ class HashMap
   end
 
   def get(key)
-    idx = key % capacity
+    idx = hash(key) % capacity
     raise IndexError if idx.negative? || idx >= capacity
     return if hash_table[idx].nil?
     head = hash_table[idx].root
     until head.nil?
-      return head.value if hash(head.value) == key
+      return head.value if head.key == key
       head = head.next_node
     end
   end
 
   def key?(key)
-    idx = key % capacity
+    idx = self.hash(key) % capacity
     raise IndexError if idx.negative? || idx >= capacity
     return false if hash_table[idx].nil?
     head = hash_table[idx].root
     until head.nil?
-      return true if hash(head.value) == key
+      return true if head.key == key
+      head = head.next_node
     end
     false
   end
 
   def remove(key)
-    idx = key % capacity
+    idx = self.hash(key) % capacity
     raise IndexError if idx.negative? || idx >= capacity
     return if hash_table[idx].nil?
     curr = hash_table[idx].root
-    if hash(curr.value) == key
+    if curr.key == key
       hash_table[idx].root = hash_table[idx].root.next_node
       return curr.value
     end
-    while !curr.nil? && hash(curr.value) != key
+    while !curr.nil? && curr.key != key
       previous = curr
       curr = curr.next_node
     end

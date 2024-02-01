@@ -3,9 +3,8 @@ require_relative 'hash_map.rb'
 hashis_map = HashMap.new
 
 names = %w(Johnny Mike George Rachel Billy Dan Thea Chandler Remus Ronald Johnson Dave Chris Tommy)
-names.each do |name|
-  key = hashis_map.hash(name)
-  hashis_map.set(key, name)
+names.each_with_index do |name, idx|
+  hashis_map.set(name, %(#{name + idx.to_s}))
 end
 
 puts %(Hash Map Method Demonstration:)
@@ -13,22 +12,22 @@ puts %(String representation of the Hash Map (using LinkedList's #to_s))
 puts hashis_map.hash_table
 
 puts %(\n#get(key): returns the value associated with key; returns nil if not found)
-puts %(Key: hashed from value 'Johnny')
-puts hashis_map.get(hashis_map.hash(names[0]))
+puts %(Key: #{names[0]})
+p hashis_map.get(names[0])
 
 puts %(\n#key?(key): returns boolean value indicating whether key exists in Hash Map)
-puts %(Key: hashed from value 'Mike')
-p hashis_map.key?(hashis_map.hash(names[1]))
+puts %(Key: #{names[1]})
+p hashis_map.key?(names[1])
 
-puts %(#remove(key): removes the key, value pair at the given key and returns the value)
+puts %(\n#remove(key): removes the key, value pair at the given key and returns the value)
 puts %(returns nil if the key is not found in the Hash Map)
-puts %(Key: hashed from value 'Rachel')
-p hashis_map.remove(hashis_map.hash(names[3]))
+puts %(Key: #{names[3]})
+p hashis_map.remove(names[3])
 
 puts %(\nThe updated Hash Map after #remove method:)
 puts hashis_map.hash_table
 puts %(\n#set(key, value): insert a new Node into the Hash Map)
-hashis_map.set(hashis_map.hash(names[3]), names[3])
+hashis_map.set(names[3], "New Rachel")
 puts %(\nThe Hash Map after inserting Rachel back)
 puts hashis_map.hash_table
 
